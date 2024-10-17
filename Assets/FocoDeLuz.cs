@@ -3,31 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.GlobalIllumination;
 
-public class FocoDeLuz : MonoBehaviour, IInteractuable
+public class FocoDeLuz : Interactuable
 {
-    public Material miMaterial;
+    public MeshRenderer miMesh;
     public Light miLuz;
 
     public bool onOff = true;
-    public void interactuar()
+    public override void interactuar()
     {
-        if (onOff){
-            Apagar();
-            onOff = false;
-        }
-        else {Prender(); onOff = true;}        
+        if (onOff){Apagar();}
+        else {Prender();}        
     }
 
     void Start()
     {
-        miMaterial = GetComponent<MeshRenderer>().material;
+        miMesh = GetComponent<MeshRenderer>();
         miLuz = GetComponent<Light>();
     }
 
     void Apagar(){
+        onOff = false;
         miLuz.enabled = false;
+        miMesh.enabled = false;
     }
     void Prender(){
+        onOff = true;
         miLuz.enabled = true;
+        miMesh.enabled = true;
     }
 }
